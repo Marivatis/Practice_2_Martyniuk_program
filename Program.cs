@@ -57,10 +57,20 @@ namespace Practice_Linq
             // див. приклад як має бути виведено:
             foreach (var game in selectedGames)
             {
-                Console.WriteLine($"{game.Date.ToString("dd.MM.yyyy")} {game.Home_team} - {game.Away_team}, " +
-                    $"Score: {game.Home_score} - {game.Away_score}, Country: {game.Country}");
+                Console.WriteLine(ToString(game));
             }
 
+            static string ToString(FootballGame game)
+            {
+                string info = string.Empty;
+
+                info += game.Date.ToString("dd.MM.yyyy") + ' ';
+                info += $"{game.Home_team} - {game.Away_team}" + ", ";
+                info += $"Score: {game.Home_score} - {game.Away_score}" + ", ";
+                info += $"Country: {game.Country}";
+
+                return info;
+            }
         }
 
         // Запит 2
@@ -68,15 +78,30 @@ namespace Practice_Linq
         {
             //Query 2: Вивести Friendly матчі збірної Італії, які вона провела з 2020 року.  
 
-            var selectedGames = games; // Корегуємо запит !!!
+            var selectedGames = games
+                .Where(game => game.Neutral && (game.Home_team.Equals("Italy") || game.Away_team.Equals("Italy")) && game.Date.Year >= 2020); // Корегуємо запит !!!
 
 
             // Перевірка
             Console.WriteLine("\n======================== QUERY 2 ========================");
 
             // див. приклад як має бути виведено:
+            foreach (var game in selectedGames)
+            {
+                Console.WriteLine(ToString(game));
+            }
 
+            static string ToString(FootballGame game)
+            {
+                string info = string.Empty;
 
+                info += game.Date.ToString("dd.MM.yyyy") + ' ';
+                info += $"{game.Home_team} - {game.Away_team}" + ", ";
+                info += $"Score: {game.Home_score} - {game.Away_score}" + ", ";
+                info += $"Country: {game.Country}";
+
+                return info;
+            }
         }
 
         // Запит 3
